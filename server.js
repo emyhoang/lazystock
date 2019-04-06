@@ -8,6 +8,12 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+// Connect passport for authentication
+const passport = require('passport');
+require('./models/users.model');
+require('./config/passport');
+app.use(passport.initialize());
+
 //Middleware for CORS
 const cors = require('cors');
 app.use(cors());
