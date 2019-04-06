@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-
+const mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
   email: {
@@ -13,9 +13,8 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   hash: String,
-  salt: String,
-  timestamps: true
-});
+  salt: String
+}, { timestamps: true });
 
 userSchema.methods.setPassword = password => {
   this.salt = crypto.randomBytes(16).toString('hex');
@@ -40,3 +39,6 @@ userSchema.methods.generateJWT = () => {
 
   return jwt.sign(payload, process.env.APP_SECRET)
 }
+
+const User = mongoose.model('User', userSchema);
+module.exports = User;

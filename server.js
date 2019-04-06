@@ -37,6 +37,10 @@ if (process.env.NODE_ENV !== 'production') {
 const dotenv = require('dotenv');
 dotenv.config();
 
+// routing
+const apiRoute = require('./routes')
+app.use('/api', apiRoute);
+
 //Declaring Port
 const port = 3000;
 app.listen(port, () => {
