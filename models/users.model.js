@@ -1,5 +1,6 @@
 var crypto = require('crypto');
-import { Mongoose } from "mongoose";
+const jwt = require('jsonwebtoken');
+
 
 var userSchema = new mongoose.Schema({
   email: {
@@ -25,3 +26,17 @@ userSchema.methods.validPassword = password => {
   const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
   return this.hash === hash;
 };
+
+userSchema.methods.generateJWT = () => {
+  const expired_at = new Date();
+  expired_at.setDate(expired_at.getDate() + 7) // Expire in 7 days from now
+
+  const payload = {
+    _id: this._id,
+    email: this.email,
+    name: this.name,
+    exp: parseInt(expired_at.getTime() / 1000)
+  }
+
+  return jwt.sign(payload, process.env.APP_SECRET)
+}

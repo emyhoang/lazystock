@@ -27,6 +27,10 @@ if (process.env.NODE_ENV !== 'production') {
   mongoose.connect(process.env.MONGODB_URI)
 }
 
+// Load env variables using dotenv
+const dotenv = require('dotenv');
+dotenv.config();
+
 //Declaring Port
 const port = 3000;
 app.listen(port, () => {
