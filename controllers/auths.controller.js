@@ -3,17 +3,14 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 const login = (req, res) => {
-
   passport.authenticate('local', function(err, user, info){
-    const token;
-
     if(err) {
       res.status(404).json(err)
       return;
     }
 
     if(user){
-      token = user.generateJwt();
+      const token = user.generateJWT();
       res.status(200);
       res.json({
         "token" : token
