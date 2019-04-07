@@ -3,10 +3,26 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 const login = (req, res) => {
-  res.status(200)
-  res.json({
-    "message": "User logged in: " + req.body.email
-  })
+
+  passport.authenticate('local', function(err, user, info){
+    const token;
+
+    if(err) {
+      res.status(404).json(err)
+      return;
+    }
+
+    if(user){
+      token = user.generateJwt();
+      res.status(200);
+      res.json({
+        "token" : token
+      });
+    } else {
+      // If user is not found
+      res.status(401).json(info);
+    }
+    })(req, res);
 }
 
 const register = (req, res) => {
@@ -21,9 +37,10 @@ const register = (req, res) => {
         "message": "Couldn't create user: " + req.body.email
       })
     } else {
+      const token = user.generateJWT();
       res.status(200);
       res.json({
-        "message": "User registered: " + req.body.email
+        "token" : token
       })
     }
   })
