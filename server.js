@@ -41,6 +41,17 @@ dotenv.config();
 const apiRoute = require('./routes')
 app.use('/api', apiRoute);
 
+// error handlers
+// Catch unauthorised errors
+app.use(function (err, req, res, next) {
+  if(err.name === 'UnauthorizedError'){
+    res.status(401);
+    res.json({
+      "message": "You are not authorized to use this resource."
+    })
+  }
+});
+
 //Declaring Port
 const port = 3000;
 app.listen(port, () => {
