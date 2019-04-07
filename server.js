@@ -8,6 +8,12 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+// Connect passport for authentication
+const passport = require('passport');
+require('./models/users.model');
+require('./config/passport');
+app.use(passport.initialize());
+
 //Middleware for CORS
 const cors = require('cors');
 app.use(cors());
@@ -26,6 +32,25 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   mongoose.connect(process.env.MONGODB_URI)
 }
+
+// Load env variables using dotenv
+const dotenv = require('dotenv');
+dotenv.config();
+
+// routing
+const apiRoute = require('./routes')
+app.use('/api', apiRoute);
+
+// error handlers
+// Catch unauthorised errors
+app.use(function (err, req, res, next) {
+  if(err.name === 'UnauthorizedError'){
+    res.status(401);
+    res.json({
+      "message": "You are not authorized to use this resource."
+    })
+  }
+});
 
 //Declaring Port
 const port = 3000;
