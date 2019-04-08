@@ -50,6 +50,10 @@ export class AuthService {
     return this.request('post', 'register', user);
   }
 
+  public login(user): Observable<any> {
+    return this.request('post', 'login', user);
+  }
+
   private saveToken(token: string): void {
     if(isPlatformBrowser(this.platformId)){
       localStorage.setItem('mean-token', token);
