@@ -24,7 +24,7 @@ export class AuthService {
     if (method === 'post'){
       if (path === 'login' || path === 'register'){
         request = this.http.post(`${this.baseURL}/${path}`, data)
-      }else {
+      } else {
         request = this.http.post(`${this.baseURL}/${path}`, data, { headers: this.defaultHeaders() })
       }
     } else {
@@ -35,10 +35,8 @@ export class AuthService {
       if(data.token){
         this.saveToken(data.token);
       }
-
       return data
     }));
-
     return request;
   }
 
@@ -67,7 +65,7 @@ export class AuthService {
         this.token = localStorage.getItem('mean-token');
       }
       return this.token;
-    } else{
+    } else {
       return null;
     } 
   }
