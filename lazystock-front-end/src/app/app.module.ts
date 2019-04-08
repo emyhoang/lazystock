@@ -11,18 +11,22 @@ import {
   MatFormFieldModule,
   MatCheckboxModule
 } from '@angular/material';
+import {MatIconModule} from '@angular/material/icon';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,8 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatSnackBarModule,
     MatToolbarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [
     AuthService
