@@ -74,7 +74,7 @@ export class AuthService {
     if(isPlatformBrowser(this.platformId)){
       this.token = '';
       window.localStorage.removeItem('mean-token');
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/login');
     }
   }
 
@@ -94,7 +94,7 @@ export class AuthService {
 
   public isLoggedIn(): boolean {
     const user = this.getUserDetails();
-    if (user) {
+    if (user !== null) {
       return user.exp > Date.now() / 1000;
     } else {
       return false;
