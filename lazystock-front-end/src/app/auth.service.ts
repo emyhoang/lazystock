@@ -24,7 +24,7 @@ export class AuthService {
     if (method === 'post'){
       if (path === 'login' || path === 'register'){
         request = this.http.post(`${this.baseURL}/${path}`, data)
-      }else {
+      } else {
         request = this.http.post(`${this.baseURL}/${path}`, data, { headers: this.defaultHeaders() })
       }
     } else {
@@ -35,10 +35,8 @@ export class AuthService {
       if(data.token){
         this.saveToken(data.token);
       }
-
       return data
     }));
-
     return request;
   }
 
@@ -67,7 +65,7 @@ export class AuthService {
         this.token = localStorage.getItem('mean-token');
       }
       return this.token;
-    } else{
+    } else {
       return null;
     } 
   }
@@ -76,7 +74,7 @@ export class AuthService {
     if(isPlatformBrowser(this.platformId)){
       this.token = '';
       window.localStorage.removeItem('mean-token');
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/login');
     }
   }
 
@@ -96,7 +94,7 @@ export class AuthService {
 
   public isLoggedIn(): boolean {
     const user = this.getUserDetails();
-    if (user) {
+    if (user !== null) {
       return user.exp > Date.now() / 1000;
     } else {
       return false;

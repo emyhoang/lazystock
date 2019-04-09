@@ -1,0 +1,16 @@
+<mat-toolbar color='primary'>
+  <h2 routerLink='/'>Lazy Stock</h2>
+  <span class="fill-space"></span>
+  <span *ngIf='!auth.isLoggedIn()'>
+    <button mat-icon-button routerLink='/login'> <mat-icon>account_circle</mat-icon> SignIn </button>
+  </span>
+  <span *ngIf='auth.isLoggedIn()'>
+    <button mat-button routerLink='/'> Hi, {{ auth.getUserDetails()?.name }} </button>
+  </span>
+  <span *ngIf='auth.isLoggedIn()'>
+    <button mat-button (click)='auth.logout()'> Logout </button>
+  </span>
+  
+
+  
+</mat-toolbar>
