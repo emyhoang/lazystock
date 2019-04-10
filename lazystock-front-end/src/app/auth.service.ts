@@ -40,7 +40,7 @@ export class AuthService {
     return request;
   }
 
-  private defaultHeaders(){
+  public defaultHeaders(){
     return { Authorization: `Bearer ${this.getToken()}`}
   }
 
@@ -59,7 +59,7 @@ export class AuthService {
     }
   }
 
-  private getToken(): string {
+  public getToken(): string {
     if(isPlatformBrowser(this.platformId)){
       if (!this.token) {
         this.token = localStorage.getItem('mean-token');
