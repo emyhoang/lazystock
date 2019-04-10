@@ -1,6 +1,6 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const { User }  = require('../models');
 
 const login = (req, res) => {
   passport.authenticate('local', function(err, user, info){
