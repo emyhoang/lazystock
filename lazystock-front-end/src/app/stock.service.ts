@@ -17,8 +17,7 @@ export class StockService {
   }
 
   public postNewStock(stockData) {
-    return this.http.post( this.baseURL + '/stocks', stockData, { headers: this.auth.defaultHeaders() }), 
-    this.router.navigateByUrl('/dashboard');;
+    return this.http.post( this.baseURL + '/stocks', stockData, { headers: this.auth.defaultHeaders() })
   }
 
 }

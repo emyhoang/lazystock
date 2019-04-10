@@ -1,6 +1,4 @@
-<h1>
-  Stocks
-</h1>
+<h1>Stocks</h1>
 
 <div *ngFor='let stock of stockList'>
 <p>{{stock.name}}</p>
@@ -8,4 +6,25 @@
 <p>{{stock.current_price}}</p>
 <p>{{stock.createdAt}}</p>
 </div>
+
+<form [formGroup]= 'newStockForm' (submit)='createNewStock()'>
+    <div class='form-group'>
+        <label name='name'>Stock name</label>
+        <input type='text' class='form-control' formControlName='name' placeholder="Enter stock company name"/>
+    </div>
+
+    <div class='form-group'>
+        <label name='symbol'>Symbol</label>
+        <input type='text' class='form-control' formControlName='symbol' placeholder='Enter symbol'/>
+    </div>
+
+    <div class='form-group'>
+        <label name='current_price'>Current Price</label>
+        <input type='text' class='form-control' formControlName='current_price' placeholder='Enter stock price'/>
+    </div>
+    <button type='submit'> Create </button>
+</form>
+
+
+
 
