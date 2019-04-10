@@ -9,7 +9,11 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
   MatFormFieldModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
 
@@ -22,6 +26,7 @@ import { LoginComponent } from './login/login.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './auth-guard.service';
+import { StockService } from './stock.service';
 
 @NgModule({
   declarations: [
@@ -44,11 +49,16 @@ import { AuthGuardService } from './auth-guard.service';
     MatSnackBarModule,
     MatToolbarModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    StockService
   ],
   bootstrap: [AppComponent]
 })
