@@ -13,5 +13,7 @@ router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
 router.get('/stocks', auth, ctrlStock.getStocks);
+router.post('/stocks', auth, ctrlStock.postStock);
+
 
 module.exports = router;
