@@ -15,6 +15,8 @@ router.post('/login', ctrlAuth.login);
 router.get('/stocks', auth, ctrlStock.getStocks);
 router.post('/stock', auth, ctrlStock.postStock);
 router.delete('/stock/:id', auth, ctrlStock.delStock);
+router.put('/stock/:id', auth, ctrlStock.updateStock);
+
 
 
 module.exports = router;
