@@ -28,7 +28,20 @@ const postStock = (req, res) => {
   })
 }
 
+const delStock = (req, res) => {
+  console.log(req.params.id)
+  Stock.findByIdAndRemove(req.params.id , (err) => {
+    if (err) return res.status(500).send(err);
+    const response = {
+      message: 'Stock succesfully deleted',
+      stockId: req.params.id
+    } 
+    return res.status(200).send(response);
+  });
+}
+
 module.exports = {
   getStocks,
-  postStock
+  postStock,
+  delStock
 }
