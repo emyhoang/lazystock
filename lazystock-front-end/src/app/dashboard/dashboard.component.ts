@@ -18,13 +18,18 @@ export class DashboardComponent implements OnInit {
     current_price: new FormControl('')
   })
 
-  constructor(private auth: AuthService, private route: Router, private stock: StockService) { }
+  constructor(private auth: AuthService, 
+    private router: Router,
+    private stock: StockService,
+  ) { }
 
   ngOnInit() {
     if (!this.auth.isLoggedIn()) {
-      this.route.navigate(['/login']);
+      this.router.navigate(['/login']);
     }
+
    this.getstocks();
+
   }
 
   getstocks(){
@@ -36,7 +41,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createNewStock(){
-    this.stock.postNewStock(this.newStockForm.value).subscribe(()=> {
+    this.stock.postNewStock(this.newStockForm.value).subscribe(() => {
       this.getstocks();
       this.newStockForm.reset();
     }, (err) => {
@@ -44,6 +49,13 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  delStock(id){
+    this.stock.delStock(id).subscribe(() => {
+      this.getstocks();
+    }, (err) => {
+      console.log(err)
+    })
+  }
 
 
 }

@@ -20,8 +20,8 @@ export class StockService {
     return this.http.post( this.baseURL + '/stock', stockData, { headers: this.auth.defaultHeaders() })
   }
 
-  public delStock(stockID) {
-    return this.http.post( this.baseURL + '/stock', stockID, { headers: this.auth.defaultHeaders() })
+  public delStock(id) {
+    return this.http.delete( this.baseURL + '/stock/' + id, { headers: this.auth.defaultHeaders() })
   }
 
 }
