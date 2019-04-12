@@ -24,6 +24,10 @@ export class StockService {
     return this.http.delete( this.baseURL + '/stock/' + id, { headers: this.auth.defaultHeaders() })
   }
 
+  public updateStock(id, data) {
+    return this.http.put(this.baseURL + '/stock/' + id, data, { headers: this.auth.defaultHeaders() } )
+  }
+
 }
 
 
