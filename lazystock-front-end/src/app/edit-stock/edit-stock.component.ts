@@ -11,8 +11,8 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./edit-stock.component.css']
 })
 export class EditStockComponent implements OnInit {
-  id;
-  previousFormDetail;
+  id: any;
+  previousFormDetails: any;
   updateStockForm = new FormGroup({
     name: new FormControl(''),
     symbol: new FormControl(''),
@@ -27,17 +27,16 @@ export class EditStockComponent implements OnInit {
   ngOnInit() {
     if (!this.auth.isLoggedIn()) {
       this.router.navigate(['/login']);
-    }
+    };
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
     });
     this.getStock(this.id);
   }
 
-  getStock(id){
+  getStock(id: any){
     this.stock.getStockById(id).subscribe( res  => {
-      this.previousFormDetail = res['stock']
-      console.log(this.previousFormDetail);
+      this.previousFormDetails = res['stock'];
     }, (err) => {
       console.log(err);
     });
