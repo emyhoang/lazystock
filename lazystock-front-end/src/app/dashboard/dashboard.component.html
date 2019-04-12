@@ -1,8 +1,8 @@
 <h1>Stocks</h1>
 
 <div *ngFor='let stock of stockList'>
-<p>{{stock.name}}</p>
-<p>{{stock.symbol}}</p>
+<p [routerLink]="['/stocks', stock._id]">{{stock.name}}</p>
+<p [routerLink]="['/stocks', stock._id]">{{stock.symbol}}</p>
 <p>{{stock.current_price}}</p>
 <p>{{stock.createdAt}}</p>
 <button (click)='delStock(stock._id)'>delete</button>
