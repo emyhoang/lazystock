@@ -21,9 +21,8 @@ const getStock = (req,res) => {
       stock: stock
     };
     return res.status(200).send(response);
-  })
-
-}
+  });
+};
 
 const postStock = (req, res) => {
   const stock = new Stock(req.body);

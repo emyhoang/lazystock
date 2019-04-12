@@ -16,6 +16,10 @@ export class StockService {
     return this.http.get( this.baseURL + '/stocks', { headers: this.auth.defaultHeaders() });
   }
 
+  public getStockById(id){
+    return this.http.get( this.baseURL + '/stocks/' + id, { headers: this.auth.defaultHeaders() } )
+  }
+
   public postNewStock(stockData) {
     return this.http.post( this.baseURL + '/stock', stockData, { headers: this.auth.defaultHeaders() })
   }
