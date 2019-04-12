@@ -12,6 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class EditStockComponent implements OnInit {
   id;
+  previousFormDetail;
   updateStockForm = new FormGroup({
     name: new FormControl(''),
     symbol: new FormControl(''),
@@ -30,7 +31,17 @@ export class EditStockComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
     });
+    this.getStock(this.id);
   }
+
+  getStock(id){
+    this.stock.getStockById(id).subscribe( res  => {
+      this.previousFormDetail = res['stock']
+      console.log(this.previousFormDetail);
+    }, (err) => {
+      console.log(err);
+    });
+  };
 
   updateStock(id){
     this.stock.updateStock(id, this.updateStockForm.value).subscribe(() => {

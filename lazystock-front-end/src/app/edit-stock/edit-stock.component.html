@@ -1,15 +1,21 @@
+<br/>
+<button routerLink='/dashboard'> Go Back </button>
+<br/> <br/>
 <form [formGroup]='updateStockForm' (submit)='updateStock(id)'>
   <div class='form-group'>
     <label name='name'>Stock name</label>
-    <input type='text' class='form-control' formControlName='name' placeholder="Update stock company name"/>
+    <input type='text' class='form-control' formControlName='name' placeholder="{{ previousFormDetail.name }}"/>
   </div>
   <div class='form-group'>
     <label name='symbol'>Symbol</label>
-    <input type='text' class='form-control' formControlName='symbol' placeholder='Update symbol'/>
+    <input type='text' class='form-control' formControlName='symbol' placeholder='{{ previousFormDetail.symbol }}'/>
   </div>
   <div class='form-group'>
     <label name='current_price'>Current Price</label>
-    <input type='text' class='form-control' formControlName='current_price' placeholder='Update stock price'/>
+    <input type='text' class='form-control' formControlName='current_price' placeholder='{{ previousFormDetail.current_price }}'/>
   </div>
   <button type='submit'> Update </button>
 </form>
+<button routerLink='/dashboard'> Cancel </button>
+
+

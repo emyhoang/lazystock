@@ -13,6 +13,17 @@ const getStocks = (req, res) => {
  });
 };
 
+const getStock = (req,res) => {
+  Stock.findOne({ _id: req.params.id }, (err, stock) => {
+    if (err) return res.status(500).send(err);
+    const response = {
+      message: 'Succesfully got a stock by Id',
+      stock: stock
+    };
+    return res.status(200).send(response);
+  });
+};
+
 const postStock = (req, res) => {
   const stock = new Stock(req.body);
   stock.save(err => {
@@ -52,6 +63,7 @@ const updateStock = (req,res) => {
 
 module.exports = {
   getStocks,
+  getStock,
   postStock,
   delStock,
   updateStock
