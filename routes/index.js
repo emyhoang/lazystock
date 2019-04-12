@@ -13,7 +13,10 @@ router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
 router.get('/stocks', auth, ctrlStock.getStocks);
-router.post('/stocks', auth, ctrlStock.postStock);
+router.post('/stock', auth, ctrlStock.postStock);
+router.delete('/stock/:id', auth, ctrlStock.delStock);
+router.put('/stock/:id', auth, ctrlStock.updateStock);
+
 
 
 module.exports = router;

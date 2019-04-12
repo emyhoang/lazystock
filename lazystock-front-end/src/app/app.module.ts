@@ -27,6 +27,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './auth-guard.service';
 import { StockService } from './stock.service';
+import { EditStockComponent } from './edit-stock/edit-stock.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { StockService } from './stock.service';
     RegisterComponent,
     LoginComponent,
     NavBarComponent,
-    DashboardComponent
+    DashboardComponent,
+    EditStockComponent
   ],
   imports: [
     BrowserModule,

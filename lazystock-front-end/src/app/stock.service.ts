@@ -17,7 +17,15 @@ export class StockService {
   }
 
   public postNewStock(stockData) {
-    return this.http.post( this.baseURL + '/stocks', stockData, { headers: this.auth.defaultHeaders() })
+    return this.http.post( this.baseURL + '/stock', stockData, { headers: this.auth.defaultHeaders() })
+  }
+
+  public delStock(id) {
+    return this.http.delete( this.baseURL + '/stock/' + id, { headers: this.auth.defaultHeaders() })
+  }
+
+  public updateStock(id, data) {
+    return this.http.put(this.baseURL + '/stock/' + id, data, { headers: this.auth.defaultHeaders() } )
   }
 
 }
