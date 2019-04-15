@@ -1,14 +1,24 @@
-<h1> Login </h1>
-<form [formGroup] = 'loginForm' (submit) = 'login()'>
-  <div class='form-group'>
+<br/><br/><br/><br/>
+<div class='row mt-4'>
+  <div class='col-sm-4'></div>
+  <div class='col-sm-4 card shadow p-3 mb-5 bg-white rounded mt-4'>
+    <h2 class='text-center bg-header-primary card-header'> Login </h2>
+    <p class='text-center bg-header-primary card-header'> Don't have an account? 
+    <a routerLink='/register'>Register Now.</a>
+    </p> 
+  <br/>
+  <form [formGroup] = 'loginForm' (submit) = 'login()'>
+    <div class='form-group'>
     <label for = 'email'> Email </label>
     <input type='email' class='form-control' formControlName='email' placeholder='Enter your email'/>
-  </div>
-  <div class='form-group'>
+    </div>
+    <div class='form-group'>
     <label for = 'password'> Password </label>
     <input type='password' class='form-control' formControlName='password' placeholder='Password'/>
+    </div>
+  <button type='submit' class='btn bg-header-primary'>Login</button>
+  <br/><br/>
+  </form>
   </div>
-  <button type='submit' class='btn btn-default'>Login</button>
-  <br/>
-  <a routerLink='/register'>Don't have an account? Register Now.</a>
-</form>
+  <div class='col-sm-4'></div>
+</div>
