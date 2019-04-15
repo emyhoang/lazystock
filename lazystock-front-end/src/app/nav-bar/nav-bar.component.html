@@ -1,12 +1,13 @@
-<mat-toolbar color='primary'>
-  <h2 routerLink='/'>Lazy Stock</h2>
+<mat-toolbar class='darkNavMode'>
+  <img src='../../assets/img/logo.png' class='logo'/>
+  <h5 routerLink='/' class='ml-2'>Lazy Stock</h5>
   <span class="fill-space"></span>
   <span *ngIf='!auth.isLoggedIn()'>
     <button mat-icon-button routerLink='/login'> <mat-icon>account_circle</mat-icon> SignIn </button>
   </span>
-  <span *ngIf='auth.isLoggedIn()'>
+  <!-- <span *ngIf='auth.isLoggedIn()'>
     <button mat-button routerLink='/'> Hi, {{ auth.getUserDetails()?.name }} </button>
-  </span>
+  </span> -->
   <span *ngIf='auth.isLoggedIn()'>
     <button mat-button (click)='auth.logout()'> Logout </button>
   </span>
