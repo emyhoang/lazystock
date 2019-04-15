@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'nav-bar',
@@ -7,7 +8,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
+  currentDate = moment();
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
