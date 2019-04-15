@@ -1,11 +1,12 @@
-<br/><br/>
-<div class='row'>
+<br/><br/><br/><br/>
+<div class='row mt-4'>
   <div class='col-sm-4'></div>
   <div class='col-sm-4 card shadow p-3 mb-5 bg-white rounded mt-4'>
-  <h2 class='text-center'> Login </h2>
-  <p class='text-center text-dark'> Don't have an account? 
+    <h2 class='text-center bg-header-primary card-header'> Login </h2>
+    <p class='text-center bg-header-primary card-header'> Don't have an account? 
     <a routerLink='/register'>Register Now.</a>
-  </p> 
+    </p> 
+  <br/>
   <form [formGroup] = 'loginForm' (submit) = 'login()'>
     <div class='form-group'>
     <label for = 'email'> Email </label>
@@ -15,9 +16,10 @@
     <label for = 'password'> Password </label>
     <input type='password' class='form-control' formControlName='password' placeholder='Password'/>
     </div>
-  <button type='submit' class='btn btn-primary'>Login</button>
+  <button type='submit' class='btn bg-header-primary'>Login</button>
   <br/><br/>
   </form>
   </div>
+<!-- </div> -->
   <div class='col-sm-4'></div>
 </div>

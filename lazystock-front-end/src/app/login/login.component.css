@@ -1,9 +1,14 @@
 body {
   background-image: url('../../assets/img/background.png');
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
 }
 
 html {
-  height: 100%
+  min-height: 100%
+}
+
+.bg-header-primary {
+  background-image: linear-gradient(#331566, #2F2C8A);
+  color: white;
 }
