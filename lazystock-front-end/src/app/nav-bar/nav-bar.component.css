@@ -1,0 +1,10 @@
+.darkNavMode {
+  background-color: #2B244D;
+  color: white;
+  box-shadow: 0 3px 8px -1px #8C7297;
+  font-family: 'Times New Roman', Times, serif
+}
+.logo {
+  height: 35px;
+  width: 50px;
+}
