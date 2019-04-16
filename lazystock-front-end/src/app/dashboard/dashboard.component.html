@@ -1,33 +1,48 @@
-<h1>Stocks</h1>
-
-<div *ngFor='let stock of stockList'>
-<p [routerLink]="['/stocks', stock._id]">{{stock.name}}</p>
-<p [routerLink]="['/stocks', stock._id]">{{stock.symbol}}</p>
-<p>{{stock.current_price}}</p>
-<p>{{stock.createdAt}}</p>
-<button (click)='delStock(stock._id)'>delete</button>
-<button [routerLink]="['/stocks', stock._id, 'edit']">edit</button>
+<h2 class='text-white text-center'>Stocks</h2>
+<div class='row'>
+  <div class='col-md-9'>
+    <table class='table table-striped table-dark'>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Symbol</th>
+          <th>Last Price</th>
+          <th>Last Updated</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let stock of stockList'>
+          <td [routerLink]="['/stocks', stock._id]">{{stock.name}}</td>
+          <td [routerLink]="['/stocks', stock._id]">{{stock.symbol}}</td>
+          <td>{{stock.current_price}}</td>
+          <td>{{stock.updatedAt}}</td>
+          <button (click)='delStock(stock._id)'>delete</button>
+          <button [routerLink]="['/stocks', stock._id, 'edit']">edit</button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<br/>
 
-<form [formGroup]= 'newStockForm' (submit)='createNewStock()'>
-    <div class='form-group'>
+<div class='row'>
+  <div class='col-md-4'>
+    <form [formGroup]='newStockForm' (submit)='createNewStock()'>
+      <div class='form-group'>
         <label name='name'>Stock name</label>
-        <input type='text' class='form-control' formControlName='name' placeholder="Enter stock company name"/>
-    </div>
+        <input type='text' class='form-control' formControlName='name' placeholder="Enter stock company name" />
+      </div>
 
-    <div class='form-group'>
+      <div class='form-group'>
         <label name='symbol'>Symbol</label>
-        <input type='text' class='form-control' formControlName='symbol' placeholder='Enter symbol'/>
-    </div>
+        <input type='text' class='form-control' formControlName='symbol' placeholder='Enter symbol' />
+      </div>
 
-    <div class='form-group'>
+      <div class='form-group'>
         <label name='current_price'>Current Price</label>
-        <input type='text' class='form-control' formControlName='current_price' placeholder='Enter stock price'/>
-    </div>
-    <button type='submit'> Create </button>
-</form>
-
-
-
-
+        <input type='text' class='form-control' formControlName='current_price' placeholder='Enter stock price' />
+      </div>
+      <button type='submit'> Create </button>
+    </form>
+  </div>
+</div>
