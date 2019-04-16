@@ -12,14 +12,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class EditStockComponent implements OnInit {
   id: any;
-  previousFormDetails: any;
   updateStockForm = new FormGroup({
     name: new FormControl(''),
     symbol: new FormControl(''),
     current_price: new FormControl('')
   });
 
-  constructor(private auth: AuthService, 
+  constructor(private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private stock: StockService) { }
@@ -32,19 +31,24 @@ export class EditStockComponent implements OnInit {
       this.id = params.get('id');
     });
     this.getStock(this.id);
+
   }
 
-  getStock(id: any){
-    this.stock.getStockById(id).subscribe( res  => {
-      this.previousFormDetails = res['stock'];
+  getStock(id: any) {
+    this.stock.getStockById(id).subscribe(res => {
+      this.updateStockForm.setValue({
+        name: res['stock'].name,
+        symbol: res['stock'].symbol,
+        current_price: res['stock'].current_price
+      });
     }, (err) => {
       console.log(err);
     });
   };
 
-  updateStock(id){
+  updateStock(id) {
     this.stock.updateStock(id, this.updateStockForm.value).subscribe(() => {
-      this.router.navigate(['/dashboard']);             
+      this.router.navigate(['/dashboard']);
     }, (err) => {
       console.log(err);
     });
