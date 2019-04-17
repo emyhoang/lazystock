@@ -1,12 +1,12 @@
 
 // Initiate express app
-const express = require('express')
+const express = require('express');
 const app = express();
 const { Stock } = require('./models');
 const { Timeserie } = require('./models');
 
 // Connect bodyParser to app
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -33,14 +33,14 @@ if (process.env.NODE_ENV !== 'production') {
   mongoose.connect(config.database)
 } else {
   mongoose.connect(process.env.MONGODB_URI)
-}
+};
 
 // Load env variables using dotenv
 const dotenv = require('dotenv');
 dotenv.config();
 
 // routing
-const apiRoute = require('./routes')
+const apiRoute = require('./routes');
 app.use('/api', apiRoute);
 
 // error handlers
@@ -50,15 +50,15 @@ app.use(function (err, req, res, next) {
     res.status(401);
     res.json({
       "message": "You are not authorized to use this resource."
-    })
-  }
+    });
+  };
 });
 
 // Pull aplha vantage API to populate data
 const getStockData = (stock) => {
   //npm install request
-  const request = require('request')
-  const apiKey = process.env.ALPHAVANTAGE_KEY
+  const request = require('request');
+  const apiKey = process.env.ALPHAVANTAGE_KEY;
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock.symbol}&apikey=${apiKey}&outputsize=compact`
 
   request(url, function (err, res, body) {
@@ -83,15 +83,27 @@ const getStockData = (stock) => {
               low: value["3. low"],
               stock_id: stock._id
             });
-            timeSerie.save()
-          }
-        })
-      })
+            timeSerie.save();
+          };
+        });
+      });
     } catch (err) {
       console.log("Saving timeseries failed, please try again.")
-    }
+    };
   });
 };
+
+const cron = require('node-cron');
+// Run Mon-Fri, 6PM New York Time
+cron.schedule('00 00 22 * * 1-5', function () {
+  console.log("Importing new data")
+  Stock.find({}, (_, stocks) => {
+    stocks.forEach(stock => {
+      getStockData(stock);
+    });
+  });
+});
+
 
 
 //Declaring Port
@@ -99,9 +111,5 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
 
-  Stock.find({}, (err, stocks) => {
-    stocks.forEach(stock => {
-      getStockData(stock)
-    });
-  })
 });
+
