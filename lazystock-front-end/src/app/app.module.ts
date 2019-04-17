@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatToolbarModule } from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
-
+import { FusionChartsModule } from 'angular-fusioncharts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -17,6 +17,15 @@ import { AuthGuardService } from './auth-guard.service';
 import { StockService } from './stock.service';
 import { EditStockComponent } from './edit-stock/edit-stock.component';
 import { StockDetailComponent } from './stock-detail/stock-detail.component';
+
+// Import FusionCharts library and chart modules
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
+
 
 @NgModule({
   declarations: [
@@ -38,6 +47,7 @@ import { StockDetailComponent } from './stock-detail/stock-detail.component';
     MatButtonModule, 
     MatToolbarModule,
     MatIconModule,
+    FusionChartsModule
     
   ],
   providers: [
