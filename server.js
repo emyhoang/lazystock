@@ -2,10 +2,12 @@
 // Initiate express app
 const express = require('express')
 const app = express();
+const { Stock } = require('./models');
+const { Timeserie } = require('./models');
 
 // Connect bodyParser to app
 const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Connect passport for authentication
@@ -44,7 +46,7 @@ app.use('/api', apiRoute);
 // error handlers
 // Catch unauthorised errors
 app.use(function (err, req, res, next) {
-  if(err.name === 'UnauthorizedError'){
+  if (err.name === 'UnauthorizedError') {
     res.status(401);
     res.json({
       "message": "You are not authorized to use this resource."
@@ -52,8 +54,54 @@ app.use(function (err, req, res, next) {
   }
 });
 
+// Pull aplha vantage API to populate data
+const getStockData = (stock) => {
+  //npm install request
+  const request = require('request')
+  const apiKey = process.env.ALPHAVANTAGE_KEY
+  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock.symbol}&apikey=${apiKey}&outputsize=compact`
+
+  request(url, function (err, res, body) {
+    try {
+      const json = JSON.parse(body);
+      const parsedJson = json["Time Series (Daily)"]
+      Object.keys(parsedJson).forEach(function (timestamp) {
+        Timeserie.find({
+          date: timestamp,
+          stock_id: stock._id
+        }, (err, existed) => {
+          // Find the appropriate timeserie using timestamp and stock ID
+          // IF the time serie is save before, dont save it again
+          // else create a new record
+          if (existed.length == 0) {
+            value = parsedJson[timestamp]
+            const timeSerie = new Timeserie({
+              date: timestamp,
+              open: value["1. open"],
+              close: value["4. close"],
+              high: value["2. high"],
+              low: value["3. low"],
+              stock_id: stock._id
+            });
+            timeSerie.save()
+          }
+        })
+      })
+    } catch (err) {
+      console.log("Saving timeseries failed, please try again.")
+    }
+  });
+};
+
+
 //Declaring Port
 const port = 3000;
 app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
+
+  Stock.find({}, (err, stocks) => {
+    stocks.forEach(stock => {
+      getStockData(stock)
+    });
+  })
 });

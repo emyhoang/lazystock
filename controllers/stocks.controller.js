@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Stock } = require('../models');
+const { Timeserie } = require('../models');
 
 const getStocks = (req, res) => {
  Stock.find({}, (err, stocks) => {
@@ -61,10 +62,24 @@ const updateStock = (req,res) => {
   });
 };
 
+const getTimeseries = (req, res) => {
+  Timeserie.find({}, (err, timeSeries) => {
+    if (err) {
+      res.status(404).json(err);
+      return;
+    } else {
+      res.status(200);
+      return res.json({"timeSeries": timeSeries })
+    };
+  });
+};
+
+
 module.exports = {
   getStocks,
   getStock,
   postStock,
   delStock,
-  updateStock
+  updateStock,
+  getTimeseries
 }
