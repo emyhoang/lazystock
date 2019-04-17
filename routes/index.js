@@ -18,6 +18,7 @@ router.post('/stock', auth, ctrlStock.postStock);
 router.delete('/stock/:id', auth, ctrlStock.delStock);
 router.put('/stock/:id', auth, ctrlStock.updateStock);
 
+router.get('/timeseries', auth, ctrlStock.getTimeseries);
 
 
 module.exports = router;
