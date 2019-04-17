@@ -2,19 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatInputModule,
-  MatSnackBarModule,
-  MatToolbarModule,
-  MatFormFieldModule,
-  MatCheckboxModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatProgressSpinnerModule
-} from '@angular/material';
+import { MatButtonModule, MatToolbarModule } from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -48,17 +36,9 @@ import { StockDetailComponent } from './stock-detail/stock-detail.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule, 
-    MatCheckboxModule,
-    MatCardModule,
-    MatInputModule,
-    MatSnackBarModule,
     MatToolbarModule,
-    MatFormFieldModule,
     MatIconModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressSpinnerModule
+    
   ],
   providers: [
     AuthService,
