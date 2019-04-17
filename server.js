@@ -44,7 +44,7 @@ const apiRoute = require('./routes');
 app.use('/api', apiRoute);
 
 // error handlers
-// Catch unauthorized errors
+// Catch unauthorised errors
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401);
@@ -71,8 +71,8 @@ const getStockData = (stock) => {
           stock_id: stock._id
         }, (err, existed) => {
           // Find the appropriate timeserie using timestamp and stock ID
-          // IF the timeserie is save before, dont save it again
-          // ELSE create a new record
+          // IF the time serie is save before, dont save it again
+          // else create a new record
           if (existed.length == 0) {
             value = parsedJson[timestamp]
             const timeSerie = new Timeserie({
@@ -106,9 +106,10 @@ cron.schedule('00 00 22 * * 1-5', function () {
 
 
 
-// Declaring Port
+//Declaring Port
 const port = 3000;
 app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
+
 });
 
