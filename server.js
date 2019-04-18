@@ -104,8 +104,6 @@ cron.schedule('00 00 22 * * 1-5', function () {
   });
 });
 
-
-
 //Declaring Port
 const port = 3000;
 app.listen(port, () => {
