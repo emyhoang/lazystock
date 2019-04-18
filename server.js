@@ -100,6 +100,12 @@ cron.schedule('00 00 22 * * 1-5', function () {
   Stock.find({}, (_, stocks) => {
     stocks.forEach(stock => {
       getStockData(stock);
+      Timeserie.find({ stock_id: stock._id }, (err, ts) => {
+        const todayTs = ts[0]
+        stock.updatedAt = todayTs.date
+        stock.current_price = todayTs.close
+        stock.save();
+      });
     });
   });
 });
