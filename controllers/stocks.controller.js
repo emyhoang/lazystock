@@ -73,10 +73,10 @@ const getTimeseries = (req, res) => {
       timeSeries.forEach((ts) => {
         let array = [];
         array.push(ts["date"])
-        array.push(parseFloat(ts["high"]))
-        array.push(parseFloat(ts["open"]))
-        array.push(parseFloat(ts["low"]))
         array.push(parseFloat(ts["close"]))
+        array.push(parseFloat(ts["high"]))
+        array.push(parseFloat(ts["low"]))
+        array.push(parseFloat(ts["open"]))
         array.push(117258400)
         formattedTimeseries.push(array)
       });
