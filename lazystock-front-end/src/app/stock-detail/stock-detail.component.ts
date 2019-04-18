@@ -4,6 +4,8 @@ import { StockService } from '../stock.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as FusionCharts from 'fusioncharts';
 
+
+
 @Component({
   selector: 'stock-detail',
   templateUrl: './stock-detail.component.html',
@@ -16,6 +18,7 @@ export class StockDetailComponent implements OnInit {
   type: string;
   width: string;
   height: string;
+  chartData: any;
 
   constructor(private auth: AuthService,
     private stock: StockService,
@@ -26,8 +29,9 @@ export class StockDetailComponent implements OnInit {
     this.height = '500';
     // This is the dataSource of the chart
     this.dataSource = {
-      chart: {},
-      
+      chart: {
+        theme: "fusion"
+      },
       caption: {
         text: "Stock Price"
       },
@@ -59,15 +63,34 @@ export class StockDetailComponent implements OnInit {
   // parameters, one is data another is schema.
   fetchData() {
     var jsonify = res => res.json();
-    var dataFetch = fetch(
-      "https://s3.eu-central-1.amazonaws.com/fusion.store/ft/data/candlestick-chart-data.json"
-    ).then(jsonify);
-    var schemaFetch = fetch(
-      "https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/candlestick-chart-schema.json"
-    ).then(jsonify);
+    let dataFetch = fetch(
+      "http://localhost:3000/api/timeseries?stock_id=5cae58ec9d9c32819bb4711b", { headers: this.auth.defaultHeaders() }
+    ).then(jsonify)
+  
+    var schemaFetch = [{
+      "name": "Date",
+      "type": "date",
+      "format": "%Y-%m-%d"
+    }, {
+      "name": "Open",
+      "type": "number"
+    }, {
+      "name": "High",
+      "type": "number"
+    }, {
+      "name": "Low",
+      "type": "number"
+    }, {
+      "name": "Close",
+      "type": "number"
+    }, {
+      "name": "Volume",
+      "type": "number"
+    }];
 
     Promise.all([dataFetch, schemaFetch]).then(res => {
       const [data, schema] = res;
+      console.log(data)
       // First we are creating a DataStore
       const fusionDataStore = new FusionCharts.DataStore();
       // After that we are creating a DataTable by passing our data and schema as arguments
@@ -76,7 +99,8 @@ export class StockDetailComponent implements OnInit {
       // DataTable into its data property.
       this.dataSource.data = fusionTable;
     });
-  }
+  };
+//constructor end
 
   ngOnInit() {
     if (!this.auth.isLoggedIn()) {
