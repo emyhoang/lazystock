@@ -22,9 +22,11 @@ import { StockDetailComponent } from './stock-detail/stock-detail.component';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import * as TimeSeries from 'fusioncharts/fusioncharts.timeseries'; 
+
 
 // Pass the fusioncharts library and chart modules
-FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme, TimeSeries);
 
 
 @NgModule({
