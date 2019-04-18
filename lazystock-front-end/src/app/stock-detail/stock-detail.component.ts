@@ -56,17 +56,17 @@ export class StockDetailComponent implements OnInit {
         }
       ]
     };
-    this.fetchData();
-  }
+  };
+
 
   // In this method we will create our DataStore and using that we will create a custom DataTable which takes two
   // parameters, one is data another is schema.
   fetchData() {
     var jsonify = res => res.json();
-    let dataFetch = fetch(
-      "http://localhost:3000/api/timeseries?stock_id=5cae58ec9d9c32819bb4711b", { headers: this.auth.defaultHeaders() }
+    const url = `http://localhost:3000/api/timeseries?stock_id=${this.id}`
+    let dataFetch = fetch(url, { headers: this.auth.defaultHeaders() }
     ).then(jsonify)
-  
+
     var schemaFetch = [{
       "name": "Date",
       "type": "date",
@@ -100,7 +100,7 @@ export class StockDetailComponent implements OnInit {
       this.dataSource.data = fusionTable;
     });
   };
-//constructor end
+  //constructor end
 
   ngOnInit() {
     if (!this.auth.isLoggedIn()) {
@@ -108,8 +108,10 @@ export class StockDetailComponent implements OnInit {
     };
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
+      this.stockDetails(this.id);
+      this.fetchData();
     });
-    this.stockDetails(this.id);
+
   };
 
   stockDetails(id: any) {
