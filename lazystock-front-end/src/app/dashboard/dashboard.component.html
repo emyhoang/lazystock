@@ -16,7 +16,7 @@
           <td [routerLink]="['/stocks', stock._id]">{{stock.name}}</td>
           <td [routerLink]="['/stocks', stock._id]">{{stock.symbol}}</td>
           <td>{{stock.current_price}}</td>
-          <td>{{stock.updatedAt}}</td>
+          <td>{{stock.updatedAt | date}}</td>
           <button (click)='delStock(stock._id)'>delete</button>
           <button [routerLink]="['/stocks', stock._id, 'edit']">edit</button>
         </tr>

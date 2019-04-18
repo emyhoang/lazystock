@@ -12,24 +12,28 @@ export class StockService {
 
   constructor(private http: HttpClient, private router: Router, private auth: AuthService) { }
 
-  public getStockDetails() {
-    return this.http.get( this.baseURL + '/stocks', { headers: this.auth.defaultHeaders() });
+  public getTimeseriesByStockId(stock_id) {
+    return this.http.get(this.baseURL + `/timeseries?stock_id=${stock_id}`, { headers: this.auth.defaultHeaders() });
   }
 
-  public getStockById(id){
-    return this.http.get( this.baseURL + '/stocks/' + id, { headers: this.auth.defaultHeaders() } )
+  public getStockDetails() {
+    return this.http.get(this.baseURL + '/stocks', { headers: this.auth.defaultHeaders() });
+  }
+
+  public getStockById(id) {
+    return this.http.get(this.baseURL + '/stocks/' + id, { headers: this.auth.defaultHeaders() })
   }
 
   public postNewStock(stockData) {
-    return this.http.post( this.baseURL + '/stock', stockData, { headers: this.auth.defaultHeaders() })
+    return this.http.post(this.baseURL + '/stock', stockData, { headers: this.auth.defaultHeaders() })
   }
 
   public delStock(id) {
-    return this.http.delete( this.baseURL + '/stock/' + id, { headers: this.auth.defaultHeaders() })
+    return this.http.delete(this.baseURL + '/stock/' + id, { headers: this.auth.defaultHeaders() })
   }
 
   public updateStock(id, data) {
-    return this.http.put(this.baseURL + '/stock/' + id, data, { headers: this.auth.defaultHeaders() } )
+    return this.http.put(this.baseURL + '/stock/' + id, data, { headers: this.auth.defaultHeaders() })
   }
 
 }
