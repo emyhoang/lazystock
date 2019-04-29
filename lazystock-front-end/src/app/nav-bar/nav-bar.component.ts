@@ -9,7 +9,7 @@ import * as moment from 'moment';
 })
 export class NavBarComponent implements OnInit {
   currentDate = moment();
-  constructor(private auth: AuthService) { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
   }
