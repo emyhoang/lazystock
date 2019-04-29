@@ -56,55 +56,59 @@ app.use(function (err, req, res, next) {
 
 // Pull aplha vantage API to populate data
 const getStockData = (stock) => {
-  //npm install request
-  const request = require('request');
-  const apiKey = process.env.ALPHAVANTAGE_KEY;
-  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock.symbol}&apikey=${apiKey}&outputsize=compact`
+  return new Promise(function (resolve, reject) {
+    //npm install request
+    const request = require('request');
+    const apiKey = process.env.ALPHAVANTAGE_KEY;
+    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock.symbol}&apikey=${apiKey}&outputsize=compact`
 
-  request(url, function (err, res, body) {
-    try {
-      const json = JSON.parse(body);
-      const parsedJson = json["Time Series (Daily)"]
-      Object.keys(parsedJson).forEach(function (timestamp) {
-        Timeserie.find({
-          date: timestamp,
-          stock_id: stock._id
-        }, (err, existed) => {
-          // Find the appropriate timeserie using timestamp and stock ID
-          // IF the time serie is save before, dont save it again
-          // else create a new record
-          if (existed.length == 0) {
-            value = parsedJson[timestamp]
-            const timeSerie = new Timeserie({
-              date: timestamp,
-              open: value["1. open"],
-              close: value["4. close"],
-              high: value["2. high"],
-              low: value["3. low"],
-              stock_id: stock._id
-            });
-            timeSerie.save();
-          };
+    request(url, function (err, res, body) {
+      try {
+        const json = JSON.parse(body);
+        const parsedJson = json["Time Series (Daily)"]
+
+        Object.keys(parsedJson).forEach(function (timestamp, index) {
+          Timeserie.find({
+            date: timestamp,
+            stock_id: stock._id
+          }, (err, existed) => {
+            // Find the appropriate timeserie using timestamp and stock ID
+            // IF the time serie is save before, dont save it again
+            // else create a new record
+            if (existed.length == 0) {
+              value = parsedJson[timestamp]
+              const timeSerie = new Timeserie({
+                date: timestamp,
+                open: value["1. open"],
+                close: value["4. close"],
+                high: value["2. high"],
+                low: value["3. low"],
+                stock_id: stock._id
+              });
+              timeSerie.save();
+            };
+          });
         });
-      });
-    } catch (err) {
-      console.log("Saving timeseries failed, please try again.")
-    };
+      } catch (err) {
+        console.log("Saving timeseries failed, please try again.")
+      };
+    });
   });
 };
 
 const cron = require('node-cron');
 // Run Mon-Fri, 6PM New York Time
-cron.schedule('00 00 22 * * 1-5', function () {
+cron.schedule('* * * * * *', function () {
   console.log("Importing new data")
   Stock.find({}, (_, stocks) => {
     stocks.forEach(stock => {
-      getStockData(stock);
-      Timeserie.find({ stock_id: stock._id }, (err, ts) => {
-        const todayTs = ts[0]
-        stock.updatedAt = todayTs.date
-        stock.current_price = todayTs.close
-        stock.save();
+      getStockData(stock).then(result => {
+        Timeserie.find({ stock_id: stock._id }, (err, ts) => {
+          const todayTs = ts[0]
+          stock.updatedAt = todayTs.date
+          stock.current_price = todayTs.close
+          stock.save();
+        });
       });
     });
   });
@@ -114,6 +118,5 @@ cron.schedule('00 00 22 * * 1-5', function () {
 const port = 3000;
 app.listen(port, () => {
   console.log(`Starting the server at port ${port}`);
-
 });
 

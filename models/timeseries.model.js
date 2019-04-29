@@ -24,7 +24,7 @@ const timeserieSchema = new mongoose.Schema({
   high: {
     type: String,
     required: true
-  },
+  }
 });
 
 const Timeserie = mongoose.model('Timeserie', timeserieSchema);
