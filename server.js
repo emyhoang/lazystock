@@ -98,9 +98,10 @@ const getStockData = (stock) => {
 
 const cron = require('node-cron');
 // Run Mon-Fri, 6PM New York Time
-cron.schedule('* * * * * *', function () {
+cron.schedule('00 00 22 * * 1-5', function () {
   console.log("Importing new data")
   Stock.find({}, (_, stocks) => {
+    if (stocks == undefined) { stocks = [] }
     stocks.forEach(stock => {
       getStockData(stock).then(result => {
         Timeserie.find({ stock_id: stock._id }, (err, ts) => {
