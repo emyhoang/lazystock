@@ -63,7 +63,7 @@ export class StockDetailComponent implements OnInit {
   // parameters, one is data another is schema.
   fetchData() {
     var jsonify = res => res.json();
-    const url = `http://localhost:3000/api/timeseries?stock_id=${this.id}`
+    const url = `http://ec2-13-57-186-239.us-west-1.compute.amazonaws.com:3000/api/timeseries?stock_id=${this.id}`
     let dataFetch = fetch(url, { headers: this.auth.defaultHeaders() }
     ).then(jsonify)
 
