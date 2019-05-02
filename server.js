@@ -98,7 +98,7 @@ const getStockData = (stock) => {
 
 const cron = require('node-cron');
 // Run Mon-Fri, 6PM New York Time
-cron.schedule('05 * * * * *', function () {
+cron.schedule('00 00 22 * * 1-5', function () {
   console.log("Importing new data")
   Stock.find({}, (_, stocks) => {
     if (stocks == undefined) { stocks = [] }
