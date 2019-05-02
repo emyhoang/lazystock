@@ -11,18 +11,17 @@ import { map } from "rxjs/operators";
 
 export class AuthService {
   private token: string;
-  private baseURL = 'http://localhost:3000/api';
-  
+  private baseURL = "http://ec2-13-57-186-239.us-west-1.compute.amazonaws.com:3000/api"
 
   constructor(private http: HttpClient,
-              private router: Router,
-              @Inject(PLATFORM_ID) private platformId: Object) { }
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object) { }
 
-  private request(method, path, data): Observable<any>{
+  private request(method, path, data): Observable<any> {
     let request;
 
-    if (method === 'post'){
-      if (path === 'login' || path === 'register'){
+    if (method === 'post') {
+      if (path === 'login' || path === 'register') {
         request = this.http.post(`${this.baseURL}/${path}`, data)
       } else {
         request = this.http.post(`${this.baseURL}/${path}`, data, { headers: this.defaultHeaders() })
@@ -32,7 +31,7 @@ export class AuthService {
     }
 
     request = request.pipe(map((data: TokenResponse) => {
-      if(data.token){
+      if (data.token) {
         this.saveToken(data.token);
       }
       return data
@@ -40,8 +39,8 @@ export class AuthService {
     return request;
   }
 
-  public defaultHeaders(){
-    return { Authorization: `Bearer ${this.getToken()}`}
+  public defaultHeaders() {
+    return { Authorization: `Bearer ${this.getToken()}` }
   }
 
   public register(user): Observable<any> {
@@ -53,25 +52,25 @@ export class AuthService {
   }
 
   private saveToken(token: string): void {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('mean-token', token);
       this.token = token;
     }
   }
 
   public getToken(): string {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       if (!this.token) {
         this.token = localStorage.getItem('mean-token');
       }
       return this.token;
     } else {
       return null;
-    } 
+    }
   }
 
   public logout(): void {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       this.token = '';
       window.localStorage.removeItem('mean-token');
       this.router.navigateByUrl('/login');
@@ -83,7 +82,7 @@ export class AuthService {
 
     let payload;
 
-    if(token) {
+    if (token) {
       payload = token.split('.')[1];
       payload = window.atob(payload);
       return JSON.parse(payload);
